@@ -1,0 +1,71 @@
+<section class="index-content">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-5 createImgs-info">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">标题</div>
+                        <input type="text" class="form-control" placeholder="请输入标题...">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">出行日期</div>
+                        <input type="text" class="form-control" placeholder="请选择日期...">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">密码</div>
+                        <input type="text" class="form-control" >
+                    </div>
+                    <p>其他人需要输入正确的密码才能访问你的专辑。</p>
+                </div>
+                <div class="form-group">
+                    <ul class="list-inline pull-right">
+                        <li>
+                            <button class="btn btn-default">取消</button>
+                        </li>
+                        <li>
+                            <button class="btn btn-primary">保存</button>
+                        </li>
+                    </ul>
+                </div>
+               
+            </div>
+            <div class="col-md-12 col-lg-7 fill">
+                <div class="form-group">
+                    <h4>图片</h4>
+                    <p>支持批量上传，支持照片的格式为<span class="label label-default">jpg & png</span> 。每张照片请不要超过<span class="label label-default">50M</span> 。为了在全屏下获得最好的效果，照片的分辨率最好大于<span class="label label-default">1920 x 1280</span> 。上传后的照片默认会按照它们的EXIF日期来排序。</p>
+                    <div ng-repeat="item in thumb_default">
+                        <!-- 这里之所以写个循环，是为了后期万一需要多个‘加号’框 -->
+                        <label for="one-input">
+                            <div class="add">
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </label>
+                        <input type="file" id="one-input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_upload(this.files)"/>
+                    </div>
+                </div>
+                <div class="hr-text hr-text-left m-b-1 m-t-1">
+                    <h6 class="text-white">
+                        <strong>已上传</strong>
+                    </h6>
+                </div>
+                <div ng-repeat="item in thumb" class="imgload">
+                <!-- 采用angular循环的方式，对存入thumb的图片进行展示 -->
+                    <label>
+                        <img ng-src="{{item.imgSrc}}"/>
+                    </label>
+                    <div class="imgDel">
+                        <span ng-if="item.imgSrc" ng-click="img_del($index)" class="glyphicon glyphicon-remove"></span>
+                    </div>
+                    
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</section>

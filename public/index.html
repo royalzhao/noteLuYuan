@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appIndex" ng-controller="appIndexController">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>心在远方，路在脚下</title>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/bootstrap-markdown/css/bootstrap-markdown.min.css">
+    <link rel="stylesheet" href="./css/github.min.css">
+    <link rel="stylesheet" href="lib/angular-markdown-editor/styles/angular-markdown-editor.css">
+    <link rel="stylesheet" href="lib/highlight.js/styles/tomorrow.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        *{box-sizing: border-box;}
+        .flowGrid:before,.flowGrid:after{
+            content: "";
+            display: table;
+        }
+        .flowGrid:after{
+            clear:both;
+        }
+        
+        .flowGridItem img{width:100%;}
+        .flowGridColumn{
+            float: left;
+            padding-left: 10px;
+        }
+        .flowGridColumn:last-of-type{
+            padding-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">LuYuan</a>
+            </div>
+        
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a ui-sref="index.youji"><span class="glyphicon glyphicon-home"></span>首页</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-globe"></span>目的地</a></li>
+                </ul>
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="search-head hidden-xs">
+                        <form action="#" method="post" class="search-form">
+                            <input type="search" name="search" id="search" value="" />
+                            <button class="button btn-search" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                        </form>
+                    </li>
+                    <li class="visible-xs">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">登录/注册 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <!-- <li><a ui-sref="login">登录</a></li>
+                            <li><a ui-sref="register">注册</a></li> -->
+                            <li><a ui-sref="writeYouji">撰写游记</a></li>
+                            <li><a ui-sref="createImgs">新建图集</a></li>
+                            <li><a ui-sref="login">旅行纪年</a></li>
+                            <li><a ui-sref="setting.info">账号设置</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a ui-sref="register">退出登录</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    
+
+    <div ui-view>
+
+    </div>
+    
+
+
+    <footer>
+        <div class="container">
+            <p>
+                <span class="pull-left">路远网 © 2017. 中文</span>
+                <span class="pull-right">备案</span>
+            </p>
+        </div>
+            
+    </footer>
+    
+    
+
+
+    <script src="lib/jquery/dist/jquery.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="lib/marked/lib/marked.js"></script>
+    <script src="lib/angular-marked/dist/angular-marked.min.js"></script>
+    <script src="lib/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+    <script src="lib/highlight.js/lib/highlight.js"></script>
+    <script src="lib/angular-highlightjs/src/angular-highlightjs.js"></script>
+    <script src="lib/angular-markdown-editor/src/angular-markdown-editor.js"></script>
+    <script src="lib/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
+    <script src="./js/ngFlowGrid.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="index.js"></script>
+
+    
+    <!-- <script>
+        $(function(){
+            $('#search').val('');
+            $('#search').click(function(event){
+                $('.search-head').css('width','180px');
+                //alert('1');
+                event.stopPropagation();
+            }); 
+        })
+    </script> -->
+</body>
+</html>

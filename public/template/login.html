@@ -1,0 +1,34 @@
+
+    <div class="login-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3 col-lg-6 col-lg-offset-3">
+                    <form role="form" name="loginForm" ng-submit="loginSubmitForm()" novalidate>
+                        <legend>登录</legend>
+                        <div class="form-group">
+                            <label for="firstname" class="col-sm-2 control-label">昵称</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" name="username" ng-model="userdata.username" required >
+                              <p class="error ng-hide" ng-show="loginForm.username.$error.required  && loginForm.username.$touched">昵称不得为空</p>
+                              
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                              <input type="password" class="form-control" name="password" required  ng-model="userdata.password" id="password">
+                              <p class="error ng-hide" ng-show="loginForm.password.$error.required  && loginForm.password.$touched">密码不得为空</p>
+                              
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default" ng-disabled="loginForm.$invalid">登录</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
