@@ -1,0 +1,19 @@
+<ul class="flowGrid">
+    <li class="flowGridItem" ng-repeat="item in items">
+        <!-- <a href=""><img ng-src="{{item.img}}"></a>
+        <p>{{item.id}}__{{item.name}}</p> -->
+        <div class="article">
+            <div class="article-img">
+                <a ui-sref="articleContent">
+                    <img ng-src="{{item.thumbnail}}" alt="图片"/>
+                </a>
+            </div>
+            <div class="article-title">
+                <a href="#"><img ng-src="{{item.thumbnail}}" alt="头像" class="img-circle"/></a>
+                <h3>{{item.title}}</h3>
+                <p>{{item.putDate}}/{{item.author}}/{{item.comment}}评论/{{item.see}}浏览</p>
+            </div>
+        </div>
+        
+    </li>
+</ul>

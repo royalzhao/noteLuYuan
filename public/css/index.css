@@ -78,13 +78,12 @@ ul {
 	color: #666;
 }
 .index-content .container .flowGrid{
-	margin: 4rem 0;
 	margin-left: -4rem;
 }
 .index-content .container .flowGrid .flowGridItem{
 	background: #444;
 	border-radius: 10px;
-	margin: 15px 0;
+	margin: 15px;
 }
 .index-content .container .flowGrid .flowGridItem .article .article-img a img{
 	width: 100%;
@@ -145,12 +144,12 @@ ul {
 	position: absolute;
 	padding: 10px 20px;
 }
-.index-content .container .flowGrid .flowGridItem .gallery .title h1{
+.index-content .container .flowGrid .flowGridItem .gallery .title h3{
 	text-align: center;
 	padding-top: 6rem;
 }
 
-.index-content .container .flowGrid .flowGridItem .gallery .title h1 a:hover{
+.index-content .container .flowGrid .flowGridItem .gallery .title h3 a:hover{
 	text-decoration: none;
 }
 .index-content .container .flowGrid .flowGridItem .gallery .title p{
@@ -165,6 +164,67 @@ ul {
 	text-decoration: none;
 }
 
+/* 游记内容页 */
+.main-content{
+	padding: 2rem;
+}
+.main-content .main-content-head h3{
+	text-align: center;
+}
+
+ .main-content .main-content-head p{
+	text-align: center;
+	margin-top: 3rem;
+	margin-bottom: 2rem;
+	color: #999;
+	font-size: 13px;
+}
+ .main-content .main-content-head p span{
+	margin: 0 2rem;	
+}
+ .main-content .main-content-head .adress{
+	border-top: 1px dashed #CCCCCC;
+	border-bottom: 1px dashed #CCCCCC;
+}
+ .main-content .main-content-head .adress .breadcrumb span{
+	color: #EC971F;
+	font-size: 16px;
+	margin: 0px 10px 0 0;
+}
+ .main-content .main-content-head .adress .breadcrumb li a{
+	color: #D58512;
+	opacity: 0.8;
+}
+ .main-content .main-content-head .adress .breadcrumb li a:hover{
+	opacity: 1;
+}
+ .main-content .main-content-body{
+	margin-top: 3rem;
+	margin: 0 auto;
+	max-width: 950px;
+}
+ .main-content .main-content-body p{
+	text-indent: 2em;
+	color: #444;
+	font-size: 15px;
+	line-height: 25px;
+}
+.breadcrumb{
+	padding: 8px 15px 8px 15px;
+	margin-bottom: 0px;
+}
+ .main-content .main-content-nav nav .pager li a{
+	color: #EC971F;
+	transition: all 0.45s;
+	-webkit-transition: all 0.45s;
+	-moz-transition: all 0.45s;
+	-ms-transition: all 0.45s;
+}
+ .main-content .main-content-nav nav .pager li a:hover{
+	color: #FFFFFF;
+	border-color: #EC971F;
+	box-shadow: inset 0 0 0 2em #EC971F;
+}
 
 
 
@@ -322,6 +382,18 @@ footer{
 	line-height: 20px;
 	cursor: pointer;
 }
+
+/* 游记图片展示布局 */
+.flowGrid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.flowGrid .flowGridItem{
+	flex-grow: 1;
+	width: 400px;
+}
+
 
 
 

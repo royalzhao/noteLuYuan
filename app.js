@@ -12,8 +12,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 
 
-const catelogRouter = require('./router/catelog')
-app.use('/', catelogRouter)
+const YoujiRouter = require('./router/Youji')
+app.use('/', YoujiRouter)
+const albumRouter = require('./router/album')
+app.use('/', albumRouter)
 
 
 
