@@ -229,7 +229,9 @@ ul {
 
 
 /* login页面 */
-
+.layui-layer-dialog .layui-layer-padding{
+	color: #000;
+}
 .error{
 	color: #FC2727;
 	text-align: left;

@@ -1,4 +1,4 @@
-var appIndex = angular.module('appIndex', ['ui.router','hc.marked', 'hljs', 'angular-markdown-editor'],function($httpProvider){
+var appIndex = angular.module('appIndex', ['ui.router','ng-layer','hc.marked', 'hljs', 'angular-markdown-editor'],function($httpProvider){
     // Use x-www-form-urlencoded Content-Type
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   
@@ -161,12 +161,12 @@ appIndex.controller('login',function($scope,$http){
             }
         }).then(function successCallBack(response) {
             if(response.data.message=='ok'){
-                layer.alert('aa',{icon:1});
+                layer.alert('登录成功',{icon:1});
             }else{
-                layer.alert('aa',{icon:2});
+                layer.alert('账号或密码不正确',{icon:2});
             }
         }, function errorCallback(response) {
-            console.log('网络错误')
+            layer.alert('网络链接失败',{icon:6});
         })
     }
 })

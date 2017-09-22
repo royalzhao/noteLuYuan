@@ -20,7 +20,12 @@ router.route('/login').post(function (req, res) {
            console.log({messsage: 'ERROR'})
            return
          }
-         res.send({'message':'ok'});
+         if(data.length>0){
+          res.send({'message':'ok'});
+         }else{
+          res.send({'message':'error'});
+         }
+         
        })
      })
 })
