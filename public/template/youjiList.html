@@ -4,7 +4,7 @@
         <p>{{item.id}}__{{item.name}}</p> -->
         <div class="article">
             <div class="article-img">
-                <a ui-sref="articleContent">
+                <a ui-sref="youjiContent({id:item.id})">
                     <img ng-src="{{item.thumbnail}}" alt="图片"/>
                 </a>
             </div>

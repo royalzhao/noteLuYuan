@@ -16,6 +16,8 @@ const YoujiRouter = require('./router/Youji')
 app.use('/', YoujiRouter)
 const albumRouter = require('./router/album')
 app.use('/', albumRouter)
+const userRouter = require('./router/user')
+app.use('/', userRouter)
 
 
 

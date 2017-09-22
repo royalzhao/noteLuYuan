@@ -1,4 +1,48 @@
-var appIndex = angular.module('appIndex', ['ui.router','hc.marked', 'hljs', 'angular-markdown-editor']);
+var appIndex = angular.module('appIndex', ['ui.router','hc.marked', 'hljs', 'angular-markdown-editor'],function($httpProvider){
+    // Use x-www-form-urlencoded Content-Type
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+  
+    /**
+     * The workhorse; converts an object to x-www-form-urlencoded serialization.
+     * @param {Object} obj
+     * @return {String}
+     */ 
+    var param = function(obj) {
+      var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+        
+      for(name in obj) {
+        value = obj[name];
+          
+        if(value instanceof Array) {
+          for(i=0; i<value.length; ++i) {
+            subValue = value[i];
+            fullSubName = name + '[' + i + ']';
+            innerObj = {};
+            innerObj[fullSubName] = subValue;
+            query += param(innerObj) + '&';
+          }
+        }
+        else if(value instanceof Object) {
+          for(subName in value) {
+            subValue = value[subName];
+            fullSubName = name + '[' + subName + ']';
+            innerObj = {};
+            innerObj[fullSubName] = subValue;
+            query += param(innerObj) + '&';
+          }
+        }
+        else if(value !== undefined && value !== null)
+          query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+      }
+        
+      return query.length ? query.substr(0, query.length - 1) : query;
+    };
+  
+    // Override $http service's default transformRequest
+    $httpProvider.defaults.transformRequest = [function(data) {
+      return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+    }];
+});
 
 appIndex.config(function ($stateProvider,$urlRouterProvider,markedProvider, hljsServiceProvider) {
 	markedProvider.setOptions({
@@ -31,7 +75,8 @@ appIndex.config(function ($stateProvider,$urlRouterProvider,markedProvider, hljs
 		})
         .state('login', {
 			url:'/login',
-            templateUrl: 'template/login.html'
+            templateUrl: 'template/login.html',
+            controller:'login'
 		})
         .state('register', {
 			url:'/register',
@@ -51,7 +96,7 @@ appIndex.config(function ($stateProvider,$urlRouterProvider,markedProvider, hljs
 		})
         .state('index.youji', {
 			url:'/youji',
-            templateUrl: 'template/articleList.html',
+            templateUrl: 'template/youjiList.html',
             controller:'youjiLoader'
 		})
         .state('index.img', {
@@ -64,10 +109,10 @@ appIndex.config(function ($stateProvider,$urlRouterProvider,markedProvider, hljs
             templateUrl: 'template/writeYouji.html',
             controller:'writeYouji'
 		})
-		.state('articleContent', {
-			url:'/articleContent',
-            templateUrl: 'template/articleContent.html',
-            controller:'articleContent'
+		.state('youjiContent', {
+			url:'/youjiContent/:id',
+            templateUrl: 'template/youjiContent.html',
+            controller:'youjiContent'
 		})
 		.state('createImgs', {
 			url:'/createImgs',
@@ -79,15 +124,7 @@ appIndex.config(function ($stateProvider,$urlRouterProvider,markedProvider, hljs
 appIndex.controller('appIndexController',['$rootScope','$scope','marked',function($rootScope,$scope,$http,marked){
 
 	// 双向数据
-	$scope.userdata={};
-    $scope.loginSubmitForm = function(){
-        console.log($scope.userdata);
-        if($scope.loginForm.$invalid){
-            alert('检查你的信息')
-        }else{
-            alert('提交成功')
-        }
-    }
+	
 	$scope.infoData={};
     $scope.infoSubmitForm = function(){
         console.log($scope.infoData);
@@ -107,9 +144,33 @@ appIndex.controller('appIndexController',['$rootScope','$scope','marked',functio
         }
     }
     
-
-
 }]);
+
+appIndex.controller('login',function($scope,$http){
+    $scope.userdata={};
+    
+    $scope.loginSubmitForm = function(){
+        console.log($scope.userdata.username);
+        
+        $http({
+            url: '/login',
+            method: 'post',
+            data:{
+                username:$scope.userdata.username,
+                password:$scope.userdata.password
+            }
+        }).then(function successCallBack(response) {
+            if(response.data.message=='ok'){
+                layer.alert('aa',{icon:1});
+            }else{
+                layer.alert('aa',{icon:2});
+            }
+        }, function errorCallback(response) {
+            console.log('网络错误')
+        })
+    }
+})
+
 appIndex.controller('writeYouji',function($rootScope,$scope,marked){
     // markdown
     $scope.editor1 = "在此处以markdown格式编辑文本";
@@ -200,10 +261,31 @@ appIndex.controller('createImgs',function($rootScope,$scope,$http){
 appIndex.controller('youjiLoader',function($rootScope,$scope,$http){
 
     $http({
-        url: '/youjiShow',
+        url: '/youjiList',
         method: 'post'
     }).then(function successCallBack(response) {
         $scope.items=response.data;
+    }, function errorCallback(response) {
+        console.log('网络错误')
+    })
+
+})
+appIndex.controller('youjiContent',function($scope,$http,$stateParams){
+    var id = $stateParams.id;
+    //console.log(id)
+    $http({
+        url: '/youjiContent/'+id,
+        method: 'GET'
+    }).then(function successCallBack(response) {
+        console.log(response.data[0].title)
+       
+        $scope.title = response.data[0].title;
+        $scope.putDate = response.data[0].putDate;
+        $scope.see = response.data[0].see;
+        $scope.author = response.data[0].author;
+        $scope.content = response.data[0].content;
+
+        
     }, function errorCallback(response) {
         console.log('网络错误')
     })
@@ -213,7 +295,7 @@ appIndex.controller('youjiLoader',function($rootScope,$scope,$http){
 
 appIndex.controller('imgLoader',function($scope,$http){
     $http({
-        url: '/imgShow',
+        url: '/imgList',
         method: 'post'
     }).then(function successCallBack(response) {
         $scope.items=response.data;
