@@ -3,7 +3,7 @@
         <div class="row">
             <div class="form-group">
                 <div class="col-lg-12 ">
-                    <input type="text" class="form-control input-lg"  name="youjiTitle" placeholder="请输入游记标题">
+                    <input type="text" class="form-control input-lg" ng-model="youjiData.title"  name="youjiTitle" placeholder="请输入游记标题">
                 </div>
             </div>
         </div>
@@ -23,11 +23,11 @@
             <div class="col-md-12 col-lg-6 fill">
                 <div class="form-group">
                     <label for="comment">文本视图:</label>
-                    <div marked="editor1" class="markdown outline" style="padding: 20px">
+                    <div marked="editor1" class="markdown outline" id="youjiContent" ng-model="youjiData.content" style="padding: 20px">
                     </div>
                 </div>
             </div>
         </div>
-        <input type="button" value="保存" class="btn btn-primary">
+        <input type="button" value="保存" class="btn btn-primary" ng-click="youjiSubmit()">
     </div>
 </section>

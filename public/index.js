@@ -1,4 +1,4 @@
-var appIndex = angular.module('appIndex', ['ui.router','ng-layer','hc.marked', 'hljs', 'angular-markdown-editor'],function($httpProvider){
+var appIndex = angular.module('appIndex', ['ui.router','ng-layer','ui.bootstrap','hc.marked', 'hljs', 'angular-markdown-editor'],function($httpProvider){
     // Use x-www-form-urlencoded Content-Type
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   
@@ -80,7 +80,8 @@ appIndex.config(function ($stateProvider,$urlRouterProvider,markedProvider, hljs
 		})
         .state('register', {
 			url:'/register',
-            templateUrl: 'template/register.html'
+            templateUrl: 'template/register.html',
+            controller:'register'
 		})
         .state('setting', {
 			url:'/setting',
@@ -114,6 +115,11 @@ appIndex.config(function ($stateProvider,$urlRouterProvider,markedProvider, hljs
             templateUrl: 'template/youjiContent.html',
             controller:'youjiContent'
 		})
+		.state('imgContent', {
+			url:'/imgContent/:id',
+            templateUrl: 'template/imgContent.html',
+            controller:'imgContent'
+		})
 		.state('createImgs', {
 			url:'/createImgs',
             templateUrl: 'template/createImgs.html',
@@ -125,15 +131,6 @@ appIndex.controller('appIndexController',['$rootScope','$scope','marked',functio
 
 	// 双向数据
 	
-	$scope.infoData={};
-    $scope.infoSubmitForm = function(){
-        console.log($scope.infoData);
-        if($scope.infoForm.$invalid){
-            alert('检查你的信息')
-        }else{
-            alert('保存成功')
-        }
-    }
 	$scope.passdata={};
     $scope.infoSubmitForm = function(){
         console.log($scope.passdata);
@@ -146,7 +143,7 @@ appIndex.controller('appIndexController',['$rootScope','$scope','marked',functio
     
 }]);
 
-appIndex.controller('login',function($scope,$http){
+appIndex.controller('login',function($scope,$http,$location,$state){
     $scope.userdata={};
     
     $scope.loginSubmitForm = function(){
@@ -162,7 +159,8 @@ appIndex.controller('login',function($scope,$http){
         }).then(function successCallBack(response) {
             if(response.data.message=='ok'){
                 layer.alert('登录成功',{icon:1});
-            }else{
+                $state.go('index.youji');
+           }else{
                 layer.alert('账号或密码不正确',{icon:2});
             }
         }, function errorCallback(response) {
@@ -171,10 +169,37 @@ appIndex.controller('login',function($scope,$http){
     }
 })
 
+appIndex.controller('register',function($scope,$http,$location,$state){
+    
+	$scope.userdata={};
+    $scope.registerSubmitForm = function(){
+        //console.log($scope.userdata);
+        $http({
+            url: '/register',
+            method: 'post',
+            data:{
+                username:$scope.userdata.username,
+                password:$scope.userdata.password,
+                email:$scope.userdata.email
+            }
+        }).then(function successCallBack(response) {
+           if(response.data.message=='ok'){
+                layer.alert('注册成功，请登录',{icon:1});
+                $state.go('login');
+           }else{
+                layer.alert('注册失败',{icon:2});
+            }
+        }, function errorCallback(response) {
+            layer.alert('网络链接失败',{icon:6});
+        })
+    }
+    
+})
+
 appIndex.controller('writeYouji',function($rootScope,$scope,marked){
     // markdown
     $scope.editor1 = "在此处以markdown格式编辑文本";
-
+    
     // normal flow, function call
     $scope.convertMarkdown = function() {
     vm.convertedMarkdown = marked(vm.markdown);
@@ -188,6 +213,16 @@ appIndex.controller('writeYouji',function($rootScope,$scope,marked){
     }
     $scope.onFullScreenExitCallback = function(e) {
         e.hidePreview();
+    }
+
+    //获取输入内容
+    $scope.youjiData={};
+    var a = angular.element(document.querySelector('#youjiContent')).html()
+    console.log(a);
+    $scope.youjiSubmit = function(){
+        console.log(1)
+        console.log($scope.youjiData);
+        console.log(a);
     }
 })
 
@@ -289,6 +324,112 @@ appIndex.controller('youjiContent',function($scope,$http,$stateParams){
     }, function errorCallback(response) {
         console.log('网络错误')
     })
+
+})
+appIndex.controller('imgContent',function($scope,$http,$stateParams){
+    var id = $stateParams.id;
+    //console.log(id)
+    $scope.myInterval = '';
+    $scope.noWrapSlides = false;
+    $scope.active = 0;
+    var slides = $scope.slides = [];
+    
+  
+    slides.push({
+        image: './img/img1.jpg',
+        text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
+        id: 0
+      });
+      slides.push({
+        image: './img/img2.jpg',
+        text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
+        id: 1
+      });
+      slides.push({
+        image: './img/img3.jpg',
+        text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
+        id: 2
+      });
+      slides.push({
+        image: './img/img4.jpg',
+        text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
+        id: 3
+      });
+    
+  
+    $scope.randomize = function() {
+      var indexes = generateIndexesArray();
+      assignNewIndexesToSlides(indexes);
+    };
+  
+    
+  
+    // Randomize logic below
+  
+    function assignNewIndexesToSlides(indexes) {
+      for (var i = 0, l = slides.length; i < l; i++) {
+        slides[i].id = indexes.pop();
+      }
+    }
+  
+    function generateIndexesArray() {
+      var indexes = [];
+      for (var i = 0; i < currIndex; ++i) {
+        indexes[i] = i;
+      }
+      return shuffle(indexes);
+    }
+  
+    // http://stackoverflow.com/questions/962802#962890
+    function shuffle(array) {
+      var tmp, current, top = array.length;
+  
+      if (top) {
+        while (--top) {
+          current = Math.floor(Math.random() * (top + 1));
+          tmp = array[current];
+          array[current] = array[top];
+          array[top] = tmp;
+        }
+      }
+  
+      return array;
+    }
+    // $http({
+    //     url: '/imgContent/'+id,
+    //     method: 'GET'
+    // }).then(function successCallBack(response) {
+    //     console.log(response.data[0].title)
+       
+    //     $scope.myInterval = 2000;
+    //     $scope.noWrapSlides = false;
+    //     $scope.active = 0;
+    //     var slides = $scope.slides = [];
+    //     var addSlide = function () {
+    //         slides.push({
+    //             image: './img/img1.jpg',
+    //             text: 'Image1',
+    //             id: 0
+    //         });
+    //         slides.push({
+    //             image: './img/img2.jpg',
+    //             text: 'Image2',
+    //             id: 1
+    //         });
+    //     };
+
+    //     addSlide();
+
+    //     $scope.title = response.data[0].title;
+    //     $scope.putDate = response.data[0].putDate;
+    //     $scope.see = response.data[0].see;
+    //     $scope.author = response.data[0].author;
+    //     $scope.content = response.data[0].content;
+
+        
+    // }, function errorCallback(response) {
+    //     console.log('网络错误')
+    // })
 
 })
 

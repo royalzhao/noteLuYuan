@@ -1,15 +1,15 @@
 <ul class="flowGrid">
     <li class="flowGridItem" ng-repeat="item in items">
         <div class="gallery">
-            <a href=""><img ng-src="{{item.thumbnail}}" alt="相册"></a> 
+            <a ui-sref="imgContent({id:item.id})"><img ng-src="{{item.thumbnail}}" alt="相册"></a> 
             <div class="see">
                 <span class="glyphicon glyphicon-eye-open"></span>
             </div>
             <div class="title">
-                <h3><a href="">{{item.title}}</a> </h3>
+                <h3><a ui-sref="imgContent({id:item.id})">{{item.title}}</a> </h3>
                 <p>
-                    <small><a href="#">{{item.albumName}}</a> </small>
-                    <small><a href="#">{{item.username}}</small></a> <br>
+                    <small><a ui-sref="#">{{item.albumName}}</a> </small>
+                    <small><a ui-sref="#">{{item.username}}</small></a> <br>
                     <small>{{item.putDate}}</small>
                     <small>{{item.comment}}评论</small>
                     <small>{{item.see}}浏览</small>

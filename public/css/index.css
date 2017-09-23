@@ -395,6 +395,18 @@ footer{
 	flex-grow: 1;
 	width: 400px;
 }
+.imgContent .spide{
+	position: fixed;
+	width: 270px;
+	right: -175px;
+	top:30%;
+	transition: all 0.45s;
+	-webkit-transition: all 0.45s;
+	-moz-transition: all 0.45s;
+}
+.imgContent .spide:hover{
+	right: 0;
+}
 
 
 

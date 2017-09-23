@@ -18,6 +18,7 @@
     "jquery": "^3.2.1",
     "mysql": "^2.13.0",
     "mysql2": "^1.2.0",
-    "ngtouch": "^1.0.1"
+    "ngtouch": "^1.0.1",
+    "silly-datetime": "^0.1.2"
   }
 }

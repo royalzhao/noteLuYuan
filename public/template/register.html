@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3 col-lg-6 col-lg-offset-3">
-                    <form role="form" name="loginForm" ng-submit="loginSubmitForm()" novalidate style="margin:6rem 0;">
+                    <form role="form" name="loginForm" ng-submit="registerSubmitForm()" novalidate style="margin:6rem 0;">
                         <legend>注册</legend>
                         <div class="form-group" ng-class="{'has-success':loginForm.username.$valid}">
                             <label for="firstname" class="col-sm-2 control-label">昵称</label>
@@ -28,7 +28,7 @@
                         <div class="form-group" ng-class="{'has-success':loginForm.password.$valid}">
                             <label for="password" class="col-sm-2 control-label">密码</label>
                             <div class="col-sm-10">
-                              <input type="password" class="form-control" name="password" required ng-minlength="6" ng-maxlength="255" ng-model="userdata.password" id="password">
+                              <input type="password" class="form-control" name="password" required ng-minlength="6" ng-maxlength="255" ng-model="userdata.password">
                               <p class="glyphicon glyphicon-ok input_result success ng-hide" ng-show="loginForm.password.$valid"></p>
                               <p class="error ng-hide" ng-show="(loginForm.password.$error.minlength || loginForm.password.$error.maxlength) && loginForm.password.$touched">昵称应在6~255位之间</p>
                               <p class="error ng-hide" ng-show="loginForm.password.$error.required  && loginForm.password.$touched">密码不得为空</p>
@@ -38,7 +38,7 @@
                         <div class="form-group" ng-class="{'has-success':loginForm.repassword.$valid}">
                             <label for="repassword" class="col-sm-2 control-label">确认密码</label>
                             <div class="col-sm-10">
-                              <input type="password" class="form-control" name="repassword" compare="userdata.password" required ng-model="userdata.repassword" id="repassword">
+                              <input type="password" class="form-control" name="repassword" compare="userdata.password" required ng-model="userdata.repassword">
                               <p class="glyphicon glyphicon-ok input_result success ng-hide" ng-show="loginForm.repassword.$valid"></p>
                               <p class="error ng-hide" ng-show="loginForm.repassword.$error.compare  && loginForm.repassword.$touched">两次密码输入不一致</p>
                               
