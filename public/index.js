@@ -326,6 +326,12 @@ appIndex.controller('youjiContent',function($scope,$http,$stateParams){
     })
 
 })
+//转义html
+appIndex.filter('trustHtml', function ($sce) {
+    return function (input) {
+        return $sce.trustAsHtml(input);
+    }
+});
 appIndex.controller('imgContent',function($scope,$http,$stateParams){
     var id = $stateParams.id;
     //console.log(id)

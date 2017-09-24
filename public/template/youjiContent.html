@@ -5,8 +5,8 @@
             <p><span>发布时间：{{putDate}}</span><span>编辑:{{author}}</span><span>浏览({{see}})</span></p>
 
         </div>
-        <div class="main-content-body">
-            {{content}}
+        <div class="main-content-body" ng-bind-html="content | trustHtml">
+            <!-- {{content}} -->
             
         </div>
         <div class="main-content-nav">
