@@ -7,10 +7,6 @@
     <title>心在远方，路在脚下</title>
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/font-awesome.min.css">
-    <link rel="stylesheet" href="lib/bootstrap-markdown/css/bootstrap-markdown.min.css">
-    <link rel="stylesheet" href="./css/github.min.css">
-    <link rel="stylesheet" href="lib/angular-markdown-editor/styles/angular-markdown-editor.css">
-    <link rel="stylesheet" href="lib/highlight.js/styles/tomorrow.css">
     <link rel="stylesheet" href="./js/layer/skin/layer.css">
     <link rel="stylesheet" href="./css/index.css">
     <style>
@@ -69,17 +65,19 @@
                             </span>
                         </div><!-- /input-group -->
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">登录/注册 <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
+                    <li class="dropdown" ng-switch="isUsername(username)">
+                        <a class="dropdown-toggle" data-toggle="dropdown"><span ng-switch-when = "false">登录/注册</span><span ng-switch-when = "true">{{username}}</span> <b class="caret"></b></a>
+                        <ul class="dropdown-menu" ng-switch-when = "false">
                             <li><a ui-sref="login">登录</a></li>
                             <li><a ui-sref="register">注册</a></li>
+                        </ul>
+                        <ul class="dropdown-menu" ng-switch-when = "true">
                             <li><a ui-sref="writeYouji">撰写游记</a></li>
                             <li><a ui-sref="createImgs">新建图集</a></li>
                             <li><a ui-sref="login">旅行纪年</a></li>
                             <li><a ui-sref="setting.info">账号设置</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a ui-sref="register">退出登录</a></li>
+                            <li><a ng-click="logout()">退出登录</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -110,20 +108,22 @@
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="lib/marked/lib/marked.js"></script>
-    <script src="lib/angular-marked/dist/angular-marked.min.js"></script>
-    <script src="lib/bootstrap-markdown/js/bootstrap-markdown.js"></script>
-    <script src="lib/highlight.js/lib/highlight.js"></script>
-    <script src="lib/angular-highlightjs/src/angular-highlightjs.js"></script>
-    <script src="lib/angular-markdown-editor/src/angular-markdown-editor.js"></script>
-    <script src="lib/bootstrap-markdown/locale/bootstrap-markdown.zh.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="./js/ocLazyLoad.js"></script>
     <script src="./js//ui-bootstrap-tpls.js"></script>
     <script src="./js/layer/layer.js"></script>
     <script src="./js/ng-layer.js"></script>
+    <script src="lib/ueditor/example/public/ueditor/ueditor.config.js"></script>
+    <script src="lib/ueditor/example/public/ueditor/ueditor.all.js"></script>
+    <script src="lib/ueditor/example/public/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="./js/ueditorDirective.js"></script>
     <script src="index.js"></script>
+
+    <!-- controller -->
+    <script src="./controller/login.js"></script>
+    <script src="./controller/register.js"></script>
+    <script src="./controller/img.js"></script>
+    <script src="./controller/youji.js"></script>
 
     
     <!-- <script>

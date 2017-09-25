@@ -10,22 +10,9 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-lg-6">
-                <div class="form-group">
-                    <label for="comment">Markdown文本编辑:</label>
-                    <textarea 	name="editor1" class="content-box"
-                    ng-model="editor1"
-                    markdown-editor="{'iconlibrary': 'fa', addExtraButtons: true, resize: 'vertical'}"
-                    rows="10" >
-                    </textarea>
-                </div>
-            </div>
-            <div class="col-md-12 col-lg-6 fill">
-                <div class="form-group">
-                    <label for="comment">文本视图:</label>
-                    <div marked="editor1" class="markdown outline" id="youjiContent" ng-model="youjiData.content" style="padding: 20px">
-                    </div>
-                </div>
+            <div class="col-md-12 col-lg-12">
+                <div ueditor id="container"  config="{{config}}"  ></div>
+                <button ng-click="getContent('container')" >获取container内容</button>  
             </div>
         </div>
         <input type="button" value="保存" class="btn btn-primary" ng-click="youjiSubmit()">

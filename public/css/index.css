@@ -407,6 +407,9 @@ footer{
 .imgContent .spide:hover{
 	right: 0;
 }
+.imgContent .spide div .input-group input{
+	padding: 10px;
+}
 
 
 

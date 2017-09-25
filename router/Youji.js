@@ -3,7 +3,10 @@ const mysql = require('../database/mysql');
 var sd = require('silly-datetime');
 const router = express.Router()
 
+
+
 router.route('/youjiList').post(function (req, res) {
+
     let sql =  `select * from youji`;
     
     mysql.pool.getConnection(function (error, connection) {
