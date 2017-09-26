@@ -84,7 +84,8 @@ appIndex.config(function ($stateProvider,$urlRouterProvider) {
         .state('index.youji', {
 			url:'/youji',
             templateUrl: 'template/youjiList.html',
-            controller:'youjiLoader'
+            controller:'youjiLoader',
+            cache:'false'
 		})
         .state('index.img', {
 			url:'/img',
@@ -113,7 +114,7 @@ appIndex.config(function ($stateProvider,$urlRouterProvider) {
 		})
 	
 })
-appIndex.controller('appIndexController',function($scope,$http,$state){
+appIndex.controller('appIndexController',function($scope,$http,$state,$window){
 
 	// 双向数据
 	
@@ -147,13 +148,12 @@ appIndex.controller('appIndexController',function($scope,$http,$state){
     }
 
     $scope.logout = function(){
-        alert(1)
         $http({
             url: '/delUsername',
             method: 'get'
         }).then(function successCallBack(response) {
             if(response.data.message == 'ok'){
-                $state.go('index.youji');
+                $window.location.reload();
              }
         }, function errorCallback(response) {
             console.log('网络错误')

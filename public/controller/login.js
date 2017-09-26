@@ -1,5 +1,5 @@
 
-appIndex.controller('login',function($scope,$http,$location,$state){
+appIndex.controller('login',function($scope,$http,$location,$state,$window){
     $scope.userdata={};
     
     $scope.loginSubmitForm = function(){
@@ -16,7 +16,9 @@ appIndex.controller('login',function($scope,$http,$location,$state){
             if(response.data.message=='ok'){
                 
                 layer.alert('登录成功',{icon:1});
-                $state.go('index.youji');
+               // $state.go('index.youji',{},{reload:true});
+                // $route.reload()
+                $window.location.reload();
                 
            }else{
                 layer.alert('账号或密码不正确',{icon:2});
