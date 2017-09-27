@@ -201,3 +201,11 @@ appIndex.directive('ngFileSelect', [ '$parse', '$timeout', function($parse, $tim
 		});
 	};
 }])
+// appIndex.directive('ngBlur', function($parse){
+//     return function($scope, $element, $attr){
+//       var fn = $parse($attr['ngBlur']);
+//       $element.on('focusout', function(event){
+//         fn($scope, {$event: event});
+//       });
+//     }
+// });
