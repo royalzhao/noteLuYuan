@@ -12,7 +12,11 @@
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">出行日期</div>
-                        <input type="text" class="form-control" placeholder="请选择日期...">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dat" is-open="popup1.opened" ng-required="true" close-text="关闭"
+                               clear-text="清空" current-text="今天" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -28,7 +32,7 @@
                             <button class="btn btn-default">取消</button>
                         </li>
                         <li>
-                            <button class="btn btn-primary">保存</button>
+                            <button class="btn btn-primary" ng-click="submit_form()">保存</button>
                         </li>
                     </ul>
                 </div>

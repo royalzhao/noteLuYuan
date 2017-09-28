@@ -122,6 +122,18 @@ appIndex.controller('imgLoader',function($scope,$http){
 
 
 appIndex.controller('createImgs',function($rootScope,$scope,$http){
+    $scope.dat = new Date();
+    $scope.format = "yyyy/MM/dd";
+    $scope.altInputFormats = ['yyyy/M!/d!'];
+
+    $scope.popup1 = {
+        opened: false
+    };
+    $scope.open1 = function () {
+        $scope.popup1.opened = true;
+    };
+
+
     // 图片上传
 
 	$scope.reader = new FileReader();   //创建一个FileReader接口
@@ -147,25 +159,24 @@ appIndex.controller('createImgs',function($rootScope,$scope,$http){
         var data = new FormData();      //以下为像后台提交图片数据
         data.append('image', files[0]);
 		data.append('guid',$scope.guid);
-		console.log(data)
-		//console.log($scope.guid)
-		//console.log(data.image);
-        // $http({
-        //     method: 'post',
-        //     url: '/comm/test-upload.php?action=success',
-        //     data:data,
-        //     headers: {'Content-Type': undefined},
-        //     transformRequest: angular.identity
-        // }).success(function(data) {
-        //     if (data.result_code == 'SUCCESS') {
-                // $scope.form.image[data.guid] = data.result_value;
-                // $scope.thumb[data.guid].status = 'SUCCESS';
-                // console.log($scope.form)
-        //     }
-        //     if(data.result_code == 'FAIL'){
-        //         console.log(data)
-        //     }
-        // })
+		$http({
+            method: 'post',
+            url: '/uploadImg',
+            data:data,
+            headers: {'Content-Type': undefined},
+            transformRequest: angular.identity
+        }).then(function successCallBack(response) {
+            if (response.data.result_code == 'SUCCESS') {
+                $scope.form.image[$scope.guid] = response.data.results[0].path;
+                $scope.thumb[$scope.guid].status = 'SUCCESS';
+                console.log($scope.form)
+            }
+            if(data.result_code == 'FAIL'){
+                console.log(data)
+            }
+        }, function errorCallback(response) {
+            console.log('网络错误')
+        })
     };
 
     $scope.img_del = function(key) {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
@@ -176,14 +187,14 @@ appIndex.controller('createImgs',function($rootScope,$scope,$http){
         delete $scope.thumb[guidArr[key]];
         delete $scope.form.image[guidArr[key]];
     };
-    // $scope.submit_form = function(){    //图片选择完毕后的提交，这个提交并没有提交前面的图片数据，只是提交用户操作完毕后，到底要上传哪些，通过提交键名或者链接，后台来判断最终用户的选择,整个思路也是如此
-    //     $http({
-    //         method: 'post',
-    //         url: '/comm/test.php',
-    //         data:$scope.form,
-    //     }).success(function(data) {
-    //         console.log(data);   
-    //     })
-    // };
+    $scope.submit_form = function(){    //图片选择完毕后的提交，这个提交并没有提交前面的图片数据，只是提交用户操作完毕后，到底要上传哪些，通过提交键名或者链接，后台来判断最终用户的选择,整个思路也是如此
+        $http({
+            method: 'post',
+            url: '/insertImg',
+            data:$scope.form,
+        }).success(function(data) {
+            console.log(data);   
+        })
+    };
  
  })
