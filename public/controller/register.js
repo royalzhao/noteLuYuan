@@ -21,6 +21,8 @@ appIndex.controller('register',function($scope,$http,$location,$state){
             }
         }, function errorCallback(response) {
             layer.alert('网络链接失败',{icon:6});
+
+            
         })
     }
     
